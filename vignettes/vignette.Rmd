@@ -1,0 +1,287 @@
+yaml
+
+---
+title: "Spatial Perturb-Seq Vignette"
+author: "Kimberle Shen"
+date: '2024-08-03'
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+#### This package, which builds on a seurat object, provides functions for the analysis and visualization of single-cell spatial perturb-seq data. It includes functionality for annotating barcodes (representing perturbations) which facilites downstream analyses like differential expression, analysis of barcode spatial distribution patterns, and calling cellular neighbours and neighbourhoods for the exploration of cell-cell interactions.
+
+```{r setup, include=FALSE}
+library(spatialperturbseq)
+library(dplyr)
+library(Seurat)
+library(patchwork)
+library(ggplot2)
+library(cowplot)
+library(ggsignif)
+library(SeuratData)
+library(SeuratWrappers)
+library(SummarizedExperiment)
+library(SpatialExperiment)
+library(scuttle)
+library(jsonlite)
+library(viridis)
+library(liana)
+library(tidyverse)
+library(OmnipathR)
+library(liana)
+library(magrittr)
+library(circlize)
+library(spatstat.geom)
+library(scCustomize)
+library(powsimR)
+library(scPower)
+
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
+
+obj <- readRDS(system.file("extdata", "object.RDS", package = "spatialperturbseq"))
+DefaultAssay(obj) <- "Spatial"
+
+gRNA_list <- c("sgrna-C9orf72", "sgrna-Cfap410", "sgrna-clu", "sgrna-dpp5", 
+               "sgrna-fasn", "sgrna-flcn", "sgrna-gfap", "sgrna-lrrk2", 
+               "sgrna-msafe", "sgrna-ndufaf", "sgrna-oligo2", "sgrna-rbfox", 
+               "sgrna-rraga", "sgrna-sh3gl2", "sgrna-stk39", 
+               "sgrna-srf", "sgrna-tbk1", "sgrna-trem2")
+
+```
+
+```{r start_time, echo=FALSE}
+start_time <- Sys.time()
+```
+
+## Adds an image component to a Seurat object
+
+#### Adapted from: <https://github.com/STOmics/STCellbin>
+
+```{r add_image_slice}
+
+add_image_slice(obj)
+
+```
+
+## Creates a metadata column based on expression of a user-given list of barcodes, with values "Pos" or "Neg"
+
+```{r annotate_pos_neg}
+
+obj <- annotate_pos_neg(obj, gRNA_list)
+
+```
+
+## Creates barplot showing the % of barcode-positive cells in each identity class. Ident can be seurat cluster, or annotated cell type, etc
+
+```{r barplot_pos}
+
+barplot_pos(obj)
+
+```
+
+## Calculates DEGs for Pos vs Neg cell populations and shows top upregulated genes for each population
+
+```{r pos_neg_DEG, include=FALSE, message=FALSE}
+
+pos_neg_DEG(obj)
+
+```
+
+## Spatial plot of negative and positive cells
+
+```{r spatial_pos_neg}
+
+spatial_pos_neg(obj)
+
+```
+
+## Frequency histogram of nearest neighbor distances for Pos points in a spatial region, highlighting distribution of distances
+
+#### A left-skewed graph suggests clustering of Pos points while a right-skewed graph suggests a more dispersed pattern. A uniform graph could indicate random distribution without clustering or dispersion, while multimodal peaks could indicate multiple clusters.
+
+```{r nndist_pos_neg}
+
+nndist_pos_neg(obj)
+
+```
+
+## Creates a metadata column in a Seurat object based on expression of a list of features, labeling each cell with its barcode, "Neg" or "Multiple"
+
+```{r annotate_gRNA}
+
+obj <- annotate_gRNA(obj, gRNA_list)
+
+```
+
+## Creates a piechart showing the proportion of cells having 1, 2, 3 etc unique features
+
+#### In most cases, most cells ideally have only 1 unique barcode
+
+```{r piechart_barcode_uniqueness}
+
+piechart_barcode_uniqueness(obj, gRNA_list)
+
+```
+
+## Bar plot showing the number of cells for each perturbation
+
+```{r barplot_barcode_count}
+
+barplot_barcode_count(obj, Multiple = TRUE, Neg = FALSE)
+
+```
+
+## Creates 2 barplots: number of DEGs and average fold change of DEGs, for each perturbation
+
+```{r plot_perturbation_effect, message = FALSE, fig.width=10, fig.height=8}
+
+plot_perturbation_effect(obj, perturbations = c("sgrna-oligo2", "sgrna-rraga", "sgrna-fasn", "sgrna-Cfap410", "sgrna-clu", "sgrna-gfap", "sgrna-stk39", "sgrna-trem2"))
+
+```
+
+## Dotplot of upregulated genes for each perturbation
+
+```{r dotplot_upregulated}
+
+barcodes_to_include <- c("sgrna-Cfap410", "sgrna-clu", "sgrna-fasn", "sgrna-flcn", "sgrna-gfap", 
+                         "sgrna-msafe", "sgrna-ndufaf", "sgrna-oligo2", "sgrna-rbfox", 
+                         "sgrna-rraga", "sgrna-sh3gl2", "sgrna-stk39", "sgrna-trem2")
+
+dotplot_upregulated(obj, barcodes_to_include = barcodes_to_include)
+dotplot_upregulated(obj, barcodes_to_include = barcodes_to_include, include_sgrna = TRUE)
+
+```
+
+## Scatterplot showing the spatial location of different perturbations in the tissue
+
+```{r plot_barcode_spread}
+
+cells <- subset(x = obj, subset = x < 19500 & y > 5000 & x > 15000 & y < 8000)
+Idents(cells) <- cells$gRNA
+plot_barcode_spread(cells)
+
+```
+
+## Given a list of cellIDs and the Seurat object, returns the cellIDs of its nearest neighbours (euclidean distance)
+
+#### Adapted from: <https://cran.rstudio.com/web/packages/RcppHNSW/index.html>
+
+```{r get_euclidean_neighbours}
+
+cell_list <- c("69243462750838", "82231443856126", "22166326236902", "67598490276766", "81999515620420", "87024627356747", "76965813951447", "32336808792990", "21689584866416")
+get_euclidean_neighbours(obj, cell_list = cell_list)
+
+```
+
+## Given a list of CellIDs, return CellIDs of K nearest neighbours
+
+#### Adapted from: <https://github.com/prabhakarlab/Banksy>
+
+```{r get_KNN}
+
+cell_list <- c("69243462750838", "82231443856126", "22166326236902", "67598490276766", "81999515620420", "87024627356747", "76965813951447", "32336808792990", "21689584866416")
+get_KNN(obj, cell_list)
+
+```
+
+## Given a list of CellIDs, return CellIDs of neighbours within a certain radius
+
+#### Adapted from: <https://cran.rstudio.com/web/packages/RcppHNSW/index.html>
+
+```{r get_radial_neighbours}
+
+cell_list <- c("69243462750838", "82231443856126", "22166326236902", "67598490276766", "81999515620420", "87024627356747", "76965813951447", "32336808792990", "21689584866416")
+get_radial_neighbours(obj, cell_list)
+
+```
+
+## Frequency plot tabulating the number of positive neighbours each positive cell has
+
+#### The more the number of neighbours (k_geom), the more likely a cell will have positive neighbours
+
+```{r positive_neighbor_histogram, message=FALSE}
+
+Idents(obj) <- obj$gRNA_exp
+cell_list <- WhichCells(obj, ident = "Pos")
+
+positive_neighbor_histogram(obj, cell_list, k_geom = 10)
+positive_neighbor_histogram(obj, cell_list, k_geom = 20)
+
+```
+
+## VlnPlot showing module score of each perturbation
+
+```{r module_score, echo=FALSE, message=FALSE}
+
+obj <- AddModuleScore(obj, features = list(c("Il1rapl1", "Lrrc4c", "Cebpd","Fgf14")), name = "module")
+Idents(obj) <- obj$gRNA
+module_score(obj, module = "module1", idents = c("Neg", "sgrna-stk39", "sgrna-rbfox", "sgrna-clu"))
+
+```
+
+## Interrogates the LIANA database to identify LR interactions, visualizating cell-cell communication between 2 groups of cells (source group and target group)
+
+```{r liana_table, message = FALSE, fig.width=10, fig.height=8}
+
+results <- liana_table(obj)
+
+results %>%
+  filter(source == "sgrna-srf" | source == "sgrna-tbk1" | source == "sgrna-rraga") %>%
+  liana_dotplot(ntop = 20)
+
+```
+
+## To compare at cell-cell communication between Lrrk2-KO cells and mSafe-KO cells and their respective WT neighbours.
+
+#### This takes into account spatial information.
+
+```{r liana_table2, warning=FALSE, message = FALSE, fig.width=10, fig.height=8}
+
+Idents(obj) <- obj$gRNA
+cell_list <- WhichCells(object = obj, ident = "sgrna-lrrk2")
+neighbours <- get_KNN(obj, cell_list = cell_list)
+cell_list <- c(cell_list, neighbours)
+obj_selected <- subset(obj, cells = cell_list)
+results1 <- liana_table(obj_selected)
+
+cell_list <- WhichCells(object = obj, ident = "sgrna-msafe")
+neighbours <- get_KNN(obj, cell_list = cell_list)
+cell_list <- c(cell_list, neighbours)
+obj_selected <- subset(obj, cells = cell_list)
+results2 <- liana_table(obj_selected)
+
+results <- rbind(results1, results2)
+
+results %>%
+  arrange(desc(sca.LRscore)) %>%
+  filter(source == "sgrna-lrrk2" | source == "sgrna-msafe") %>%
+  liana_dotplot(ntop = 20)
+
+```
+
+## Plot of each cell and their neighbours, with each cell coloured by expression level of a specified ligand/receptor pair
+
+```{r plot_ligand_receptor, message = FALSE}
+
+cell_list_source = c("70596377451715", "69020124453852") # top and bottom
+cell_list_target = get_KNN(obj, cell_list_source)
+plot_ligand_receptor(obj, cell_list_source, cell_list_target, ligand = "Calm1", receptor = "Ptpra")
+```
+
+## Estimating power based on a gamma fit model in a scRNA-seq dataset to determine the ability to detect true DE, using scPower.
+
+```{r power_estimation, message = FALSE}
+
+power_estimation(obj, perturbation = "sgrna-clu", control = "sgrna-msafe", nSamples = 10)
+power_estimation(obj, perturbation = "sgrna-clu", control = "sgrna-msafe", nSamples = 20)
+
+```
+
+```{r end_time}
+end_time <- Sys.time()
+print(paste0("Vignette runtime (min): ", as.numeric(difftime(end_time, start_time, units = "mins"))))
+```

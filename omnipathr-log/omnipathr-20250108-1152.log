@@ -1,0 +1,39 @@
+[2025-01-08 11:52:21] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2025-01-08 11:52:21] [INFO]    [OmnipathR] OmnipathR version: 3.13.14
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] Reading JSON from `C:\Users\shenykk\AppData\Local\cache\OmnipathR/cache.json` (encoding: UTF-8).
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:21] [INFO]    [OmnipathR] Initialized cache: `C:\Users\shenykk\AppData\Local\cache\OmnipathR`.
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2025-01-08 11:52:21] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:35] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2025-01-08 11:52:35] [INFO]    [OmnipathR] OmnipathR version: 3.13.14
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] Reading JSON from `C:\Users\shenykk\AppData\Local\cache\OmnipathR/cache.json` (encoding: UTF-8).
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:35] [INFO]    [OmnipathR] Initialized cache: `C:\Users\shenykk\AppData\Local\cache\OmnipathR`.
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2025-01-08 11:52:35] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:47] [INFO]    [OmnipathR] Welcome to OmnipathR!
+[2025-01-08 11:52:47] [INFO]    [OmnipathR] OmnipathR version: 3.13.14
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] Reading JSON from `C:\Users\shenykk\AppData\Local\cache\OmnipathR/cache.json` (encoding: UTF-8).
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:47] [INFO]    [OmnipathR] Initialized cache: `C:\Users\shenykk\AppData\Local\cache\OmnipathR`.
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/db/db_def.json` (encoding: UTF-8).
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/magic_bytes.json` (encoding: UTF-8).
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/urls.json` (encoding: UTF-8).
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] Reading JSON from `C:/Users/shenykk/AppData/Local/Programs/R/R-4.3.3/library/OmnipathR/internal/id_types.json` (encoding: UTF-8).
+[2025-01-08 11:52:47] [TRACE]   [OmnipathR] JSON validation successful: TRUE

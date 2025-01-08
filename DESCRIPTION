@@ -1,0 +1,32 @@
+Package: spatialperturbseq
+Title: Spatial Perturb-Seq
+Version: 0.1.0
+Authors@R: person("Kimberle", "Shen", email = "kimberleshen@gmail.com", role = c("aut", "cre"))
+Description: This package provides functions for the analysis and visualization of single-cell spatial perturb-seq data. It includes functionality for annotating barcodes (representing perturbations) which facilites downstream analyses like differential expression, analysis of barcode spatial distribution patterns, and calling cellular neighbours and neighbourhoods for the exploration of cell-cell interactions.
+License: use_mit_license()
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.2
+VignetteBuilder: knitr
+Imports: 
+    dplyr,
+    Seurat,
+    patchwork,
+    ggplot2,
+    cowplot,
+    ggsignif,
+    scuttle,
+    jsonlite,
+    viridis,
+    liana,
+    tidyverse,
+    OmnipathR,
+    magrittr,
+    spatstat.geom,
+    scCustomize,
+    scPower, 
+    Banksy, 
+    SpatialExperiment
+Suggests: 
+    knitr,
+    rmarkdown
