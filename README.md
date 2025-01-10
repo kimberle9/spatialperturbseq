@@ -2,6 +2,9 @@
 
 This repository contains a vignette and R code showing some functions for a single-cell Spatial Perturb-Seq dataset, consisting of cell x (genes + barcodes + XY) matrix.
 
+## Vignette
+
+[View the HTML Vignette](https://kimberle9.github.io/spatialperturbseq/vignette.html)
 
 ## Description
 
