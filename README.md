@@ -21,6 +21,53 @@ install.packages("devtools")
 devtools::install_github("kimberle9/spatialperturbseq")
 ```
 
+## System Requirements
+
+**Operating Systems:**
+
+- Ubuntu 22.04 LTS  
+- macOS Ventura 13.5  
+- Windows 11  
+
+**R Version:**
+
+- R (≥ 4.2.0)
+
+**Required Packages (Imports):**
+
+| Package           | Minimum Version  |
+|-------------------|------------------|
+| Seurat            | ≥ 5.0.1          |
+| tidyverse         | ≥ 2.0.0          |
+| Matrix            | ≥ 1.6-1          |
+| patchwork         | ≥ 1.1.3          |
+| cowplot           | ≥ 1.1.3          |
+| ggrepel           | ≥ 0.9.5          |
+| magrittr          | ≥ 2.0.3          |
+| data.table        | ≥ 1.14.8         |
+| RColorBrewer      | ≥ 1.1-3          |
+| future            | ≥ 1.33.0         |
+| dplyr             | ≥ 1.1.4          |
+| ggplot2           | ≥ 3.5.1          |
+| ggsignif          | ≥ 0.6.4          |
+| scuttle           | ≥ 1.12.0         |
+| jsonlite          | ≥ 1.8.8          |
+| viridis           | ≥ 0.6.5          |
+| liana             | ≥ 1.0.0          |
+| OmnipathR         | ≥ 1.2.0          |
+| spatstat.geom     | ≥ 3.2-7          |
+| scCustomize       | ≥ 0.3.0          |
+| scPower           | ≥ 1.0.0          |
+| Banksy            | ≥ 0.1.2          |
+| SpatialExperiment | ≥ 1.12.0         |
+
+**Suggested Packages (optional but used in vignettes/tests):**
+
+| Package   |
+|-----------|
+| knitr     |
+| rmarkdown |
+
 ## Features
 
 #### 1. add_image_slice
