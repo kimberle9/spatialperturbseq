@@ -162,7 +162,7 @@ This function takes in a seurat object, and the cells for comparison (perturbati
 
 ## Citation
 
-If you use **spatialperturbseq** in your research, please cite it as: Shen, K., Seow, W. Y., Keng, C. T., Shern, D. L., Guo, K., Meliani, A., … Chew, W. L. (2024). Spatial Perturb-Seq: Single-cell functional genomics within intact tissue architecture. doi:10.1101/2024.12.19.628843
+If you use **spatialperturbseq** in your research, please cite it as: Shen, K., Seow, W. Y., Keng, C. T., Lim, M. G. L., Lim, D. S., Guo, K., Meliani, A., Irfan Bin Hajis, M., Wang, B., Prabhakar, S., Chen, K. H., & Chew, W. L. (2026). Spatial perturb-seq: single-cell functional genomics within intact tissue architecture. Nature communications, 10.1038/s41467-026-69677-6. Advance online publication. https://doi.org/10.1038/s41467-026-69677-6
 
 
 ## Files
